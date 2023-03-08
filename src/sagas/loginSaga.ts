@@ -3,9 +3,10 @@ import { loginUserSuccess,loginUserUnSuccess } from "../components/login/loginAc
 
 import { LoginUserDataType } from "../types/types";
 import { UserType } from "../types/types";
+import { LogedUserType } from "../types/types";
  
 type LoginActionType={type:string,payload:LoginUserDataType}
-export function* loginSaga(loginApi:(userData:LoginUserDataType)=>Response) {
+export function* loginSaga(loginApi:(userData:LoginUserDataType)=>Promise<LogedUserType>) {
   while (true) {
     const action:LoginActionType = yield take("LOGIN_USER");
 
@@ -13,13 +14,14 @@ export function* loginSaga(loginApi:(userData:LoginUserDataType)=>Response) {
   }
 }
 
-function* loginUser(loginApi:(userData:LoginUserDataType)=>Response, userData:LoginUserDataType) {
+function* loginUser(loginApi:(userData:LoginUserDataType)=>Promise<LogedUserType>, userData:LoginUserDataType) {
   try {
     const res:{user:UserType,jwtToken:string} = yield call(loginApi,userData);
     const user:UserType= {
       id:res.user.id,
       username:res.user.username,
       firstName:res.user.firstName,
+      password:null,
       lastName:res.user.lastName,
       token:res.jwtToken
   }

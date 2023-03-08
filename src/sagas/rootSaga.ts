@@ -15,8 +15,6 @@ import { deleteCarSaga } from "./deleteCarSaga";
 import { changeCarSaga } from "./changeCarSaga";
 import { logoutSaga } from "./logoutSaga";
 
-import { CarDataType } from "../types/types";
-
 function* rootSaga(){
     yield all([
         getAllCarsSaga(getAllCarsAPI),

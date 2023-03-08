@@ -6,26 +6,27 @@ import { useTheme } from "@mui/material/styles";
 import PropTypes from "prop-types";
 
 import { CarDataType } from "../../types/types";
-type Props={
-   count:number, page:number, rowsPerPage:number, onPageChange:(e:React.MouseEvent,n:number) => void
+type PropsType={
+  
+   count:number, page:number, rowsPerPage:number, onPageChange:(e: React.MouseEvent<HTMLButtonElement>,n:number) => void
 }
-function TablePaginationActions(props:Props) {
+function TablePaginationActions(props:PropsType){
     const theme = useTheme();
     const { count, page, rowsPerPage, onPageChange } = props;
   
-    const handleFirstPageButtonClick = (event:React.MouseEvent) => {
+    const handleFirstPageButtonClick = (event:React.MouseEvent<HTMLButtonElement>) => {
       onPageChange(event, 0);
     };
   
-    const handleBackButtonClick = (event:React.MouseEvent) => {
+    const handleBackButtonClick = (event:React.MouseEvent<HTMLButtonElement>) => {
       onPageChange(event, page - 1);
     };
   
-    const handleNextButtonClick = (event:React.MouseEvent) => {
+    const handleNextButtonClick = (event:React.MouseEvent<HTMLButtonElement>) => {
       onPageChange(event, page + 1);
     };
   
-    const handleLastPageButtonClick = (event:React.MouseEvent) => {
+    const handleLastPageButtonClick = (event:React.MouseEvent<HTMLButtonElement>) => {
       onPageChange(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
     };
   
@@ -70,15 +71,16 @@ function TablePaginationActions(props:Props) {
       </Box>
     );
   }
+ 
   
-  TablePaginationActions.propTypes = {
+  TablePaginationActions.propTypes= {
     count: PropTypes.number.isRequired,
     onPageChange: PropTypes.func.isRequired,
     page: PropTypes.number.isRequired,
     rowsPerPage: PropTypes.number.isRequired,
   };
 
-const TFooter:React.FC<{cars:CarDataType[],handleChangePage:(e:React.MouseEvent|null,page:number)=>void,handleChangeRowsPerPage:(e:any)=>void,page:number,rowsPerPage:number}>=({cars,handleChangePage,handleChangeRowsPerPage,page,rowsPerPage})=>{
+const TFooter:React.FC<{cars:CarDataType[],handleChangePage:(e:unknown,page:number)=>void,handleChangeRowsPerPage:(e:React.ChangeEvent<HTMLInputElement>)=>void,page:number,rowsPerPage:number}>=({cars,handleChangePage,handleChangeRowsPerPage,page,rowsPerPage})=>{
 
     return(
         <TableFooter>
@@ -96,7 +98,8 @@ const TFooter:React.FC<{cars:CarDataType[],handleChangePage:(e:React.MouseEvent|
               }}
               onPageChange={handleChangePage}
               onRowsPerPageChange={handleChangeRowsPerPage}
-              ActionsComponent={TablePaginationActions}/>
+              ActionsComponent={TablePaginationActions}
+              />
             </TableRow>
         </TableFooter>
     )
