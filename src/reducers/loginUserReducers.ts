@@ -4,6 +4,7 @@ const initialUserState: UserType = {
   id: "",
   username: "",
   firstName: "",
+  password: null,
   lastName: "",
   token: "",
 };

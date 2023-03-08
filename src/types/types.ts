@@ -10,6 +10,9 @@ export type UserType={
   lastName:string,
   token: string,
 }
+export type LogedUserType={
+  user:UserType,jwtToken:string
+}
 
 export type RegisterUdarDataType={
   firstName:string,lastName:string,username:string,password:string

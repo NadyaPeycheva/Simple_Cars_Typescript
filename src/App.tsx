@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import  { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, Route, Switch } from "react-router";
 import { firstUserCheck, logout } from "./components/login/loginAction";
@@ -14,7 +14,11 @@ function App() {
   const user = useSelector((state: RootStateType) => state.loginUserReducer);
 
   useEffect(() => {
-    const localeUser:UserType = JSON.parse(localStorage.getItem("user") || "");
+    console.log('work');
+    
+    const localeUser = JSON.parse(localStorage.getItem("user")||'{}');
+    console.log('locale user',localeUser);
+    
     if (localeUser) {
       dispatch(firstUserCheck(localeUser));
     }

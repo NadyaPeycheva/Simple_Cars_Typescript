@@ -31,7 +31,7 @@ const initialData = {
 const AddCarRow:React.FC<{user:UserType}> = ({ user }) => {
   const dispatch = useDispatch();
 
-  const [inputCarData, setInputCarData] = useState<CarDataType>(initialData);
+  const [inputCarData, setInputCarData] = useState(initialData);
 
   const removeRowHandler = () => {
     dispatch(invisibleAddRow());

@@ -1,6 +1,6 @@
 import { RegisterUdarDataType } from "../types/types";
 
-export const registerApi = async (userData:RegisterUdarDataType) => {
+export const registerApi = async (userData:RegisterUdarDataType):Promise<Response> => {
   const res =await fetch("http://161.35.202.170:8080/users/register", {
     method: "POST",
     headers: {

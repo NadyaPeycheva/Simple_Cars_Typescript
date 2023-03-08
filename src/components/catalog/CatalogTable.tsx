@@ -10,12 +10,12 @@ import SearchRow from "../searchRow/SearchRow";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
-import { UserType } from "../../types/types";
 import { CarDataType } from "../../types/types";
+import { RootStateType } from "../../configureStore";
 
 const CatalogTable = () => {
-  const allCars = useSelector((state:any):CarDataType[] => state.getAllCarsReducer);
-  const user=useSelector((state:any):UserType=>state.loginUserReducer);
+  const allCars = useSelector((state:RootStateType)=> state.getAllCarsReducer);
+  const user=useSelector((state:RootStateType)=>state.loginUserReducer);
   const [filterCars, setFilterCars] = useState<CarDataType[]>([]);
 
   const [page, setPage] = useState(0);
@@ -35,13 +35,12 @@ const CatalogTable = () => {
     setFilterCars(filteredCars);
   };
 
-  const handleChangePage = (event:React.MouseEvent|null, newPage:number) => {
+  const handleChangePage = (event:unknown, newPage:number) => {
     setPage(newPage);
   };
 
-  const handleChangeRowsPerPage = (event:React.MouseEvent) => {
-    const target = event.target as HTMLInputElement
-    setRowsPerPage(parseInt(target.value, 10));
+  const handleChangeRowsPerPage = (event:React.ChangeEvent<HTMLInputElement>) => {
+    setRowsPerPage(parseInt( event.target.value, 10));
     setPage(0);
   };
   return (

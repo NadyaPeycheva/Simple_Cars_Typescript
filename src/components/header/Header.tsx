@@ -3,9 +3,9 @@ import logo from '../../resources/cars.png'
 
 import"./HeaderStyles.scss"
 import LoginButton from './loginButton/LoginButoon';
-import { UserType } from '../../types/types';
+import { RootStateType } from '../../configureStore';
 const Header=()=>{
-    const{username}=useSelector((state:any):UserType=>state.loginUserReducer);
+    const{username}=useSelector((state:RootStateType)=>state.loginUserReducer);
     return(
         <header className="header">
             <img src={logo} alt='cars logo'/>
