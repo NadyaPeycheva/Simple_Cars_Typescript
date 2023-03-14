@@ -103,6 +103,5 @@ const TFooter:React.FC<{cars:CarDataType[],handleChangePage:(e:unknown,page:numb
             </TableRow>
         </TableFooter>
     )
-
 }
 export default TFooter;

@@ -1,11 +1,12 @@
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+
 import { TableCell, TableRow } from "@mui/material";
 import CreateIcon from "@mui/icons-material/Create";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 
 import { deleteCar } from "./carActions";
-import { useDispatch } from "react-redux";
 import ChangeRow from "../changeRow/ChangeRow";
-import { useState } from "react";
 
 import { UserType } from "../../types/types";
 import { CarDataType } from "../../types/types";

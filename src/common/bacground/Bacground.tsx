@@ -1,7 +1,8 @@
+import { ReactNode } from "react"
 
 import Container from "@mui/material/Container"
+
 import "./BacgroundStyles.scss"
-import { ReactNode } from "react"
 
 
 const Bacground:React.FC<{children:ReactNode}>=(props)=>{

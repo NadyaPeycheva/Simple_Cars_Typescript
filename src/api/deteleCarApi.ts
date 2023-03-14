@@ -1,6 +1,7 @@
+import { carSevriceUrl } from "./config";
 
 export const deleteCarApi=async(carId:string,userId:string,token:string):Promise<Response>=>{
-    const request=await fetch(`http://161.35.202.170:8080/cars/${carId}/${userId}`, {
+    const request=await fetch(`${carSevriceUrl}/${carId}/${userId}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

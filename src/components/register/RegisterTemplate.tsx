@@ -1,4 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState, useRef } from "react";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+
+import registerAction from "./registerAction";
+
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -8,50 +13,48 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import registerAction from "./registerAction";
-
 const theme = createTheme();
-const initialUserData={firstName:'',lastName:'',username:'',password:''};
-const initialErrorData={firstName:false,lastName:false,username:false,password:false};
 
 const RegisterTemplate = () => {
-    const dispatch=useDispatch();
-    const[userData,setUserData]=useState(initialUserData);
-    const[errorData,setErrorData]=useState(initialErrorData);
-    const[disabledBtn,setDisabledBtn]=useState(false);
+  const dispatch = useDispatch();
 
-    const handleUserData=(e:React.ChangeEvent<HTMLInputElement>)=>{
-      const currentKey=e.target.name;
-      const newValue=e.target.value;
-      const newProp:Record<string,string|boolean>={}
-        newProp[currentKey]=newValue;
-        setUserData((state)=>{
-            return{...state,...newProp}
-        })
-        if(newValue===''){
-            newProp[currentKey]=true;
-        }else{
-            newProp[currentKey]=false;
-        }
-        setErrorData((state)=>{
-            return{...state,...newProp}
-        })
+  const firstNameRef = useRef<HTMLInputElement>();
+  const lastNameRef = useRef<HTMLInputElement>();
+  const usernameRef = useRef<HTMLInputElement>();
+  const passwordRef = useRef<HTMLInputElement>();
+  const [errorData, setErrorData] = useState({
+    firstName: false,
+    lastName: false,
+    username: false,
+    password: false,
+  });
+  const buttonIsDisabled =
+    errorData.firstName ||
+    errorData.lastName ||
+    errorData.username ||
+    errorData.password;
+
+  const handleUserData = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const currentKey = e.target.name;
+    const newValueError = e.target.value ? false : true;
+    const newProp: Record<string, boolean | string> = {};
+    newProp[currentKey] = newValueError;
+    setErrorData((state) => {
+      return { ...state, ...newProp };
+    });
+  };
+
+  const submitHandler = (e: React.FormEvent) => {
+    const userData = {
+      firstName: firstNameRef.current!.value,
+      lastName: lastNameRef.current!.value,
+      username: usernameRef.current!.value,
+      password: passwordRef.current!.value,
     };
 
-    useEffect(()=>{
-        if(userData.firstName===''||userData.lastName===''||userData.username===''||userData.password===''){
-            setDisabledBtn(true);
-        }else{
-            setDisabledBtn(false);
-        }
-    },[userData])
-
-    const submitHandler=(e:React.FormEvent)=>{
-        e.preventDefault();
-        dispatch(registerAction(userData))
-    }
+    e.preventDefault();
+    dispatch(registerAction(userData));
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -82,10 +85,10 @@ const RegisterTemplate = () => {
             noValidate
             sx={{
               mt: 3,
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
             }}
             onSubmit={submitHandler}
           >
@@ -99,6 +102,7 @@ const RegisterTemplate = () => {
                   id="firstName"
                   label="First Name"
                   autoFocus
+                  inputRef={firstNameRef}
                   onChange={handleUserData}
                   error={errorData.firstName}
                 />
@@ -111,6 +115,7 @@ const RegisterTemplate = () => {
                   label="Last Name"
                   name="lastName"
                   autoComplete="family-name"
+                  inputRef={lastNameRef}
                   onChange={handleUserData}
                   error={errorData.lastName}
                 />
@@ -123,6 +128,7 @@ const RegisterTemplate = () => {
                   label="Username"
                   name="username"
                   autoComplete="username"
+                  inputRef={usernameRef}
                   onChange={handleUserData}
                   error={errorData.username}
                 />
@@ -136,6 +142,7 @@ const RegisterTemplate = () => {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  inputRef={passwordRef}
                   onChange={handleUserData}
                   error={errorData.password}
                 />
@@ -146,7 +153,7 @@ const RegisterTemplate = () => {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2, background: "#3F51B5" }}
-              disabled={disabledBtn}
+              disabled={buttonIsDisabled}
             >
               Sign Up
             </Button>
@@ -157,7 +164,7 @@ const RegisterTemplate = () => {
             </Grid>
           </Box>
         </Box>
-        <Grid item sx={{mt:10}}>
+        <Grid item sx={{ mt: 10 }}>
           <span>Copyright © Mobile{new Date().getFullYear()}</span>
         </Grid>
       </Container>

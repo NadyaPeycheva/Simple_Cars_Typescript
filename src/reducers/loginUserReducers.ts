@@ -15,7 +15,14 @@ type ActionLogin = {
 };
 
 export const loginUserReducer = (
-  state = initialUserState,
+  state = {
+    id: "",
+    username: "",
+    firstName: "",
+    password: null,
+    lastName: "",
+    token: "",
+  },
   action: ActionLogin
 ) => {
   if (action.type === "LOGIN_USER_SUCCESS") {

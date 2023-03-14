@@ -3,6 +3,7 @@ type ErrorActionType={
     payload:string
 
 }
+
 export const errorReducer=(state='',action:ErrorActionType)=>{
     if(action.type === 'ERROR'){
         return action.payload

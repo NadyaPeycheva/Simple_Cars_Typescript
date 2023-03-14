@@ -4,11 +4,7 @@ import CheckIcon from "@mui/icons-material/Check";
 
 import {CarDataType} from '../types/types'
 
-
-const engineTypes = ["DIESEL", "HYBRID", "ELECTRIC", "GASOLINE"];
-const conditions = ["USED", "NEW", "PARTS"];
-const cities = ["Sofia", "Plovdiv", "Varna"];
-const gearBox = ["AUTOMATIC", "MANUAL"];
+import { engineTypes,conditions,cities,gearBox } from "./tableTitleColumns";
 
 const AdditionalRow:React.FC<{carData:CarDataType,aceptAction:()=>void,removeAction:()=>void,getValueHandler:(e:React.ChangeEvent<HTMLInputElement>)=>void}>=({carData,aceptAction,removeAction,getValueHandler})=>{
     return(

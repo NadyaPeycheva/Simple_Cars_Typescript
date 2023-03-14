@@ -1,5 +1,6 @@
 import { LoginUserDataType } from "../../types/types"
 import { UserType } from "../../types/types"
+
 export const loginAction=(userData:LoginUserDataType)=>{
     return(
         {type:"LOGIN_USER",payload:userData}

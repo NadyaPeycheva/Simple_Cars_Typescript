@@ -1,6 +1,6 @@
-const changedCarErr:boolean=false
 type ChangeCarType={type:string}
-export const changeCarReducer=(state=changedCarErr,action:ChangeCarType)=>{
+
+export const changeCarReducer=(state=false,action:ChangeCarType)=>{
     if(action.type==='CHANGE_CAR_SUCCESS'){
         return false
     }

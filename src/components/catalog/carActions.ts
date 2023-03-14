@@ -26,8 +26,8 @@ export const addCar=(carData:CarDataType,userToken:string)=>{
     return({type:'ADD_CAR',payload:{car:carData,token:userToken}})
 }
 
-export const addCarSuccess=()=>{
-    return({type:'ADD_CAR_SUCCESS',})
+export const addCarSuccess=(carLikeArr:CarDataType[])=>{
+    return({type:'ADD_CAR_SUCCESS',payload:carLikeArr})
 }
 
 export const addCarUnSuccess=()=>{

@@ -1,9 +1,10 @@
-import { LoginUserDataType } from "../types/types";
+import { loginUserUrl } from "./config";
 
+import { LoginUserDataType } from "../types/types";
 import { LogedUserType } from "../types/types";
 
 export const loginApi=async(userData:LoginUserDataType):Promise<LogedUserType>=>{
-    const request=await fetch("http://161.35.202.170:8080/users/login",{
+    const request=await fetch(loginUserUrl,{
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(userData)

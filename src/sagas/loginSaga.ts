@@ -1,4 +1,5 @@
 import { take, call, put } from "redux-saga/effects";
+
 import { loginUserSuccess,loginUserUnSuccess } from "../components/login/loginAction";
 
 import { LoginUserDataType } from "../types/types";
@@ -6,6 +7,7 @@ import { UserType } from "../types/types";
 import { LogedUserType } from "../types/types";
  
 type LoginActionType={type:string,payload:LoginUserDataType}
+
 export function* loginSaga(loginApi:(userData:LoginUserDataType)=>Promise<LogedUserType>) {
   while (true) {
     const action:LoginActionType = yield take("LOGIN_USER");

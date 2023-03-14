@@ -1,37 +1,18 @@
-import { useDispatch } from "react-redux";
-import { invisibleAddRow } from "./visibleAddCarRowAction";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+
+import { invisibleAddRow } from "./visibleAddCarRowAction";
 import { addCar } from "../catalog/carActions";
 import AdditionalRow from "../../common/AdditionalRow";
 
 import { UserType } from "../../types/types";
-import { CarDataType } from "../../types/types";
 
-const initialData = {
-  id: "",
-  make: "",
-  model: "",
-  year: 0,
-  engineType: "",
-  gearBox: "",
-  condition: "",
-  horsePower:0,
-  color: "",
-  price: 0,
-  city: "",
-  mileage: 0,
-  user:{id: '',
-    username: '',
-    firstName: '',
-    lastName: '',
-    password: null},
-  extras: "",
-};
+import { initialCarData } from "./carData";
 
 const AddCarRow:React.FC<{user:UserType}> = ({ user }) => {
   const dispatch = useDispatch();
 
-  const [inputCarData, setInputCarData] = useState(initialData);
+  const [inputCarData, setInputCarData] = useState(initialCarData);
 
   const removeRowHandler = () => {
     dispatch(invisibleAddRow());
@@ -60,7 +41,7 @@ const AddCarRow:React.FC<{user:UserType}> = ({ user }) => {
     inputCarData.id = user.id;
     inputCarData.user = userData;
     dispatch(addCar(inputCarData, user.token));
-    setInputCarData(initialData);
+    setInputCarData(initialCarData);
   };
 
   return (

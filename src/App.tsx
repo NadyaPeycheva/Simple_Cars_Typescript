@@ -1,43 +1,41 @@
-import  { useEffect } from "react";
+import  { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect, Route, Switch } from "react-router";
-import { firstUserCheck, logout } from "./components/login/loginAction";
+import { Redirect, Route, Switch} from "react-router";
+
+import { firstUserCheck} from "./components/login/loginAction";
+
+import Header from "./components/header/Header";
 import Catalog from "./containers/Catalog";
 import Login from "./containers/Login";
 import Register from "./containers/Register";
 
-import { UserType } from "./types/types";
 import { RootStateType } from "./configureStore";
 
 function App() {
   const dispatch = useDispatch();
   const user = useSelector((state: RootStateType) => state.loginUserReducer);
+  const [hasHeader,setHasHeader]=useState(false);
+
+  const visibleHeader=(currentState:boolean)=>{    
+    setHasHeader(currentState);
+  }
 
   useEffect(() => {
-    console.log('work');
-    
     const localeUser = JSON.parse(localStorage.getItem("user")||'{}');
-    console.log('locale user',localeUser);
-    
     if (localeUser) {
       dispatch(firstUserCheck(localeUser));
     }
   }, []);
 
-   if (user.username) {
-    setTimeout(() => {
-      dispatch(logout());
-    }, 300000);
-  }
-
   return (
+    <>
+   {hasHeader&&<Header  />}
     <Switch>
       <Route path="/" exact>
-        {!user.username && <Redirect to="/register"></Redirect>}
-        {user.username && <Redirect to="/catalog"></Redirect>}
+        {!user.username ?<Redirect to="/login"></Redirect>:<Redirect to="/catalog"></Redirect>}
       </Route>
       <Route path="/catalog">
-        <Catalog />
+        <Catalog visibleHeader={visibleHeader}/>
       </Route>
       <Route path="/login">
         <Login />
@@ -46,6 +44,7 @@ function App() {
         <Register />
       </Route>
     </Switch>
+    </>
   );
 }
 
