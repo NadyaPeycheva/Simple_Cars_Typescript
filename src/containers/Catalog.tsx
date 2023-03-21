@@ -12,6 +12,7 @@ const Catalog:React.FC<{visibleHeader:(value:boolean)=>void}> = ({visibleHeader}
   useEffect(()=>{
     let isVisible=true;
     let isNotVisible=false;
+    
     visibleHeader(isVisible);
     return ()=>{
       visibleHeader(isNotVisible);

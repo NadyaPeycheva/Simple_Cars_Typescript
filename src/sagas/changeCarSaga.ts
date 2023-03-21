@@ -21,6 +21,8 @@ function*changeCar(changeCarApi:(carData:CarDataType,userId:string,token:string)
     const {newCarData,userId,token}=payload;
     try{
         const response:{}=yield call(changeCarApi,newCarData,userId,token);
+        console.log(response);
+        
         yield put(changeCarSuccess());
         yield put(getCars());
 

@@ -1,4 +1,4 @@
-import { all } from "redux-saga/effects";
+import { all} from "redux-saga/effects";
 
 import { registerApi } from "../api/registerApi";
 import { getAllCarsAPI } from "../api/getAllCars";

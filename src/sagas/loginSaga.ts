@@ -1,10 +1,11 @@
 import { take, call, put } from "redux-saga/effects";
 
-import { loginUserSuccess,loginUserUnSuccess } from "../components/login/loginAction";
+import { loginUserSuccess,loginUserUnSuccess, redirectToCatalog } from "../components/login/loginAction";
 
 import { LoginUserDataType } from "../types/types";
 import { UserType } from "../types/types";
 import { LogedUserType } from "../types/types";
+
  
 type LoginActionType={type:string,payload:LoginUserDataType}
 
@@ -28,7 +29,9 @@ function* loginUser(loginApi:(userData:LoginUserDataType)=>Promise<LogedUserType
       token:res.jwtToken
   }
     yield put(loginUserSuccess(user));
-    yield localStorage.setItem('user',JSON.stringify(user));
+    
+    yield put(redirectToCatalog())
+
   } catch (err) {
     yield put(loginUserUnSuccess());
   }

@@ -1,5 +1,5 @@
 import { take, call,put } from "redux-saga/effects";
-import { registerSuccess,registerUnSuccess } from "../components/register/registerAction";
+import { redirectToLogin, registerSuccess,registerUnSuccess } from "../components/register/registerAction";
 import { RegisterUdarDataType } from "../types/types";
 
 type RegisterActionType={
@@ -19,6 +19,7 @@ function*registerUser(registerApi:(userData:RegisterUdarDataType)=>Promise<Respo
   const rest:{}=yield call(registerApi,userData);
 
     yield put(registerSuccess());
+    yield put(redirectToLogin())
 
   } catch (error) {
     yield put(registerUnSuccess());

@@ -18,6 +18,11 @@ export const loginUserSuccess=(user:UserType)=>{
         {type:"LOGIN_USER_SUCCESS",payload:user}
     )
 }
+
+export const redirectToCatalog=()=>{
+return({type:'REDIRECT',payload:'/catalog'})
+} 
+
 export const loginUserUnSuccess=()=>{
     return(
         {type:"ERROR",payload:'The user is not login. Please try with valid date !'}

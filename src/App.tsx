@@ -10,29 +10,24 @@ import Login from "./containers/Login";
 import Register from "./containers/Register";
 
 import { RootStateType } from "./configureStore";
+import CustumRedirect from "./components/custumRedirect/CustumRedirect";
 
 function App() {
-  const dispatch = useDispatch();
   const user = useSelector((state: RootStateType) => state.loginUserReducer);
   const [hasHeader,setHasHeader]=useState(false);
-
+  
   const visibleHeader=(currentState:boolean)=>{    
     setHasHeader(currentState);
   }
 
-  useEffect(() => {
-    const localeUser = JSON.parse(localStorage.getItem("user")||'{}');
-    if (localeUser) {
-      dispatch(firstUserCheck(localeUser));
-    }
-  }, []);
-
   return (
     <>
    {hasHeader&&<Header  />}
+   <CustumRedirect/>
     <Switch>
       <Route path="/" exact>
-        {!user.username ?<Redirect to="/login"></Redirect>:<Redirect to="/catalog"></Redirect>}
+        {user.username===''&&<Redirect to="/login"></Redirect>}
+        {user.username!==''&&<Redirect to="/catalog"></Redirect>}
       </Route>
       <Route path="/catalog">
         <Catalog visibleHeader={visibleHeader}/>

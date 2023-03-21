@@ -8,7 +8,7 @@ import"./HeaderStyles.scss"
 
 const Header =()=>{
     const{username}=useSelector((state:RootStateType)=>state.loginUserReducer);
-   
+
     return(
         <header className="header">
             <img src={logo} alt='cars logo'/>

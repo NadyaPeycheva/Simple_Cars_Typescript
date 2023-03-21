@@ -6,5 +6,6 @@ import { deleteCarReducer } from "./deleteCarReducer";
 import { changeCarReducer } from "./changeCarReducer";
 import { registerUserReducer } from "./registerUserReducer";
 import { errorReducer } from "./errorReducer";
+import { redirectReducer } from "./redirectReducer";
 
-export default combineReducers({getAllCarsReducer,loginUserReducer,registerUserReducer,visibleRowReducer,deleteCarReducer,changeCarReducer,errorReducer})
+export default combineReducers({getAllCarsReducer,loginUserReducer,registerUserReducer,visibleRowReducer,deleteCarReducer,changeCarReducer,errorReducer,redirectReducer})
