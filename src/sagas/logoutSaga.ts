@@ -10,7 +10,5 @@ export function*logoutSaga(){
 }
 
 function*logout(){
-    yield localStorage.clear();
-
     yield put(logoutUser())
 }

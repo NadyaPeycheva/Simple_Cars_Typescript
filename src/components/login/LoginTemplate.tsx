@@ -1,3 +1,10 @@
+import React, { useState, useRef } from "react";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+
+import { loginAction } from "./loginAction";
+import logo from "../../resources/cars.png";
+
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -7,53 +14,37 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-
-import logo from "../../resources/cars.png";
-import React, { useEffect, useState } from "react";
-import { loginAction } from "./loginAction";
 const theme = createTheme();
 
-const initialUserData = { username: "", password: "" };
-const initialErrorData = { username: false, password: false };
 const LoginTemplate = () => {
   const dispatch = useDispatch();
 
-  const [userData, setUserData] = useState(initialUserData);
-  const [errorData, setErrorData] = useState(initialErrorData);
-  const [disabledBtn, setDisabledBtn] = useState(false);
+  const usernameRef = useRef<HTMLInputElement>();
+  const passwordRef = useRef<HTMLInputElement>();
+  const [errorData, setErrorData] = useState({
+    username: false,
+    password: false,
+  });
+  const isBtnDisabled = errorData.username || errorData.password;
 
-  const handleUserData = (e:React.ChangeEvent<HTMLInputElement>) => {
+  const handleUserData = (e: React.ChangeEvent<HTMLInputElement>) => {
     const currentKey = e.target.name;
-    const newValue = e.target.value;
-    const newProp:Record<string,string|boolean> = {};
+    const newValue = !e.target.value;
+    const newProp: Record<string, boolean> = {};
     newProp[currentKey] = newValue;
-    setUserData((state) => {
-      return { ...state, ...newProp };
-    });
-    if (newValue === "") {
-      newProp[currentKey] = true;
-    } else {
-      newProp[currentKey] = false;
-    }
+
     setErrorData((state) => {
       return { ...state, ...newProp };
     });
   };
 
-  useEffect(() => {
-    if (userData.username === "" || userData.password === "") {
-      setDisabledBtn(true);
-    } else {
-      setDisabledBtn(false);
-    }
-  }, [userData]);
-
-  const submitHandler = (e:React.FormEvent) => {
+  const submitHandler = (e: React.FormEvent) => {
     e.preventDefault();
-    dispatch(loginAction(userData));
-    setUserData(initialUserData);
+    const loginUserData = {
+      username: usernameRef.current!.value,
+      password: passwordRef.current!.value,
+    };
+    dispatch(loginAction(loginUserData));
   };
 
   return (
@@ -99,9 +90,9 @@ const LoginTemplate = () => {
               id="username"
               label="Username"
               name="username"
-              value={userData.username}
               autoComplete="username"
               autoFocus
+              inputRef={usernameRef}
               onChange={handleUserData}
               error={errorData.username}
             />
@@ -110,11 +101,11 @@ const LoginTemplate = () => {
               required
               fullWidth
               name="password"
-              value={userData.password}
               label="Password"
               type="password"
               id="password"
               autoComplete="current-password"
+              inputRef={passwordRef}
               onChange={handleUserData}
               error={errorData.password}
             />
@@ -124,14 +115,24 @@ const LoginTemplate = () => {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2, background: "#3F51B5" }}
-              disabled={disabledBtn}
+              disabled={isBtnDisabled}
             >
               Sign In
             </Button>
 
-            <Grid item sx={{textAlign:'center',}}>
-                <Link to='/register' style={{ textDecoration: "none",display:'block'}}>Don't have an account?</Link>
-                <Link to='/catalog' style={{ textDecoration: "none",display:'block'}}>Continue to catalog</Link>
+            <Grid item sx={{ textAlign: "center" }}>
+              <Link
+                to="/register"
+                style={{ textDecoration: "none", display: "block" }}
+              >
+                Don't have an account?
+              </Link>
+              <Link
+                to="/catalog"
+                style={{ textDecoration: "none", display: "block" }}
+              >
+                Continue to catalog
+              </Link>
             </Grid>
             <Grid item sx={{ m: 3 }}>
               <img src={logo} alt="cars logo" />

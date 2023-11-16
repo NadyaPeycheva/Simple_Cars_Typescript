@@ -1,4 +1,5 @@
 import { TableCell, TableHead, TableRow } from "@mui/material";
+
 import { tableTitleColumns } from "../../common/tableTitleColumns";
 
 const THead:React.FC<{username:string}> = ({username}) => {

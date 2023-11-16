@@ -1,10 +1,13 @@
-import { Backdrop } from "@mui/material";
 import { useDispatch } from "react-redux";
+
+import { Backdrop } from "@mui/material";
+
+import { errorAction } from "./errorAction";
 
 const ErrorBackdrop:React.FC<{message:string}> = ({message}) => {
   const dispatch=useDispatch()
   const handleClose = () => {
-dispatch({type:"REMOVE_ERROR"})
+dispatch(errorAction())
   };
   return (
     <Backdrop

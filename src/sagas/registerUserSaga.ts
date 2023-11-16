@@ -1,11 +1,12 @@
 import { take, call,put } from "redux-saga/effects";
-import { registerSuccess,registerUnSuccess } from "../components/register/registerAction";
+import { redirectToLogin, registerSuccess,registerUnSuccess } from "../components/register/registerAction";
 import { RegisterUdarDataType } from "../types/types";
 
 type RegisterActionType={
   type:string,payload:RegisterUdarDataType
 }
-export default function* registerUserSaga(registerApi:(userData:RegisterUdarDataType)=>Response|string) {
+
+export default function* registerUserSaga(registerApi:(userData:RegisterUdarDataType)=>Promise<Response>) {
   while (true) {
     const action:RegisterActionType = yield take("REGISTER_USER");
 
@@ -13,11 +14,12 @@ export default function* registerUserSaga(registerApi:(userData:RegisterUdarData
   }
 }
 
-function*registerUser(registerApi:(userData:RegisterUdarDataType)=>Response|string, userData:RegisterActionType) {
+function*registerUser(registerApi:(userData:RegisterUdarDataType)=>Promise<Response>, userData:RegisterUdarDataType) {
   try {
   const rest:{}=yield call(registerApi,userData);
 
     yield put(registerSuccess());
+    yield put(redirectToLogin())
 
   } catch (error) {
     yield put(registerUnSuccess());

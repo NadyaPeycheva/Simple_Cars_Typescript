@@ -1,8 +1,10 @@
-import { AddBox, Close, Search } from "@mui/icons-material";
-import { Input, InputAdornment } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+
 import { visibleAddRow } from "../addCarRow/visibleAddCarRowAction";
+
+import { AddBox, Close, Search } from "@mui/icons-material";
+import { Input, InputAdornment } from "@mui/material";
 
 import "./SearchRowStyle.scss";
 

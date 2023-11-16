@@ -1,4 +1,4 @@
-import { all } from "redux-saga/effects";
+import { all} from "redux-saga/effects";
 
 import { registerApi } from "../api/registerApi";
 import { getAllCarsAPI } from "../api/getAllCars";
@@ -14,8 +14,6 @@ import { addCarSaga } from "./addCarSaga";
 import { deleteCarSaga } from "./deleteCarSaga";
 import { changeCarSaga } from "./changeCarSaga";
 import { logoutSaga } from "./logoutSaga";
-
-import { CarDataType } from "../types/types";
 
 function* rootSaga(){
     yield all([

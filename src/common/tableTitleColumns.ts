@@ -26,3 +26,9 @@ export const tableTitleColumns = [
     { title: 'Mileage', field: 'mileage', type: 'numeric'  },
     { title: 'Extras', field: 'extras' },
   ]
+  const engineTypes = ["DIESEL", "HYBRID", "ELECTRIC", "GASOLINE"];
+const conditions = ["USED", "NEW", "PARTS"];
+const cities = ["Sofia", "Plovdiv", "Varna"];
+const gearBox = ["AUTOMATIC", "MANUAL"];
+
+export  {engineTypes,conditions,cities,gearBox}
